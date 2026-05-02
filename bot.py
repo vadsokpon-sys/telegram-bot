@@ -18,7 +18,7 @@ def home():
 def webhook():
     data = request.get_json()
 
-    if "message" in data:
+    if data and "message" in data:
         chat_id = data["message"]["chat"]["id"]
         text = data["message"].get("text", "")
 
@@ -47,6 +47,7 @@ def webhook():
 
     return "ok"
 
+# ВАЖНО ДЛЯ RENDER
 if name == "__main__":
     port = int(os.environ.get("PORT", 10000))
     app.run(host="0.0.0.0", port=port)
