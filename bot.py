@@ -10,6 +10,10 @@ app = Flask(__name__)
 def send(chat_id, text):
     requests.post(URL + "/sendMessage", data={"chat_id": chat_id, "text": text})
 
+@app.route("/", methods=["GET"])
+def home():
+    return "Bot is running"
+
 @app.route("/", methods=["POST"])
 def webhook():
     data = request.get_json()
@@ -43,6 +47,6 @@ def webhook():
 
     return "ok"
 
-@app.route("/", methods=["GET"])
-def home():
-    return "bot running"
+if name == "__main__":
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port)
